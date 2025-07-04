@@ -59,8 +59,13 @@ class HomePageState extends State<HomePage> {
         title: const Text("Live demo list grid"),
       ),
       //body: SingleChildScrollView (
-      body: ListView.builder(
+      body: ListView.separated (
        itemBuilder: (context, index) => languageItem(top20langages[index]),
+       separatorBuilder: (context,index) => Divider(
+        endIndent: 20,
+        indent: 20,
+        thickness: 2,
+       ),
        itemCount: top20langages.length,
     ),
    );
