@@ -64,19 +64,26 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+  var height = MediaQuery.of(context).size.height;
    return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text("Live demo list grid"),
       ),
       body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-        itemBuilder: (context, index) => Card(
-          elevation: 4,
-          color: Colors.lightGreen,
-          child: Center(
-            child: Text(langages[index].name, style: TextStyle(fontSize: 24)),
-          )
+        //gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+        gridDelegate:  SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: height / 5 // determine la hauteur de la rangée en pixels
+        ),
+        itemBuilder: (context, index) => InkWell(
+          child: Card(
+            elevation: 4,
+            color: langages[index].known ?Colors.green : Colors.red,
+            child: Center(
+              child: Text(langages[index].name, style: TextStyle(fontSize: 24)),
+            )
+          ),
+          onTap: () => setState(() => langages[index].toggle()),
         ),
         itemCount: langages.length,
       )
