@@ -51,6 +51,17 @@ const List<String> top20langages = [
 ];
 
 class HomePageState extends State<HomePage> {
+
+  List<Langage> langages = [];
+
+@override
+  void initState() {
+    for(String lg in top20langages) {
+      langages.add(Langage(lg));
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
    return Scaffold(
@@ -60,7 +71,15 @@ class HomePageState extends State<HomePage> {
       ),
       //body: SingleChildScrollView (
       body: ListView.separated (
-       itemBuilder: (context, index) => languageItem(top20langages[index]),
+        itemBuilder: (context, index) => ListTile(
+          title: Text(langages[index].name, style: const TextStyle(fontSize: 28)),
+          leading: Text(index.toString(), style: const TextStyle(fontSize: 20)),
+          trailing: Checkbox(
+            value: langages[index].known, 
+            onChanged: (value) => setState(() =>langages[index].known = value ?? false)
+          ),
+          onTap: () => debugPrint('appui sur item $index'),
+        ),
        separatorBuilder: (context,index) => Divider(
         endIndent: 20,
         indent: 20,
@@ -104,5 +123,16 @@ List<Widget> languageListWidget() {
     }
     return rows;
   }
+
+}
+
+class Langage {
+  String name;
+  bool known = false;
+
+  // CTor
+  Langage(this.name, {known = false});
+
+  toggle() => known = !known;
 
 }
