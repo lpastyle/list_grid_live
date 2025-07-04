@@ -65,6 +65,9 @@ class HomePageState extends State<HomePage> {
         endIndent: 20,
         indent: 20,
         thickness: 2,
+        color: index % 2 == 0 ? 
+          Colors.redAccent :
+          Colors.blueAccent,
        ),
        itemCount: top20langages.length,
     ),
