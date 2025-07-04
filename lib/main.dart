@@ -27,6 +27,29 @@ class HomePage extends StatefulWidget {
   
 }
 
+const List<String> top20langages = [
+  'Java',
+  'JavaScript',
+  'Python',
+  'C#',
+  'C++',
+  'PHP',
+  'Swift',
+  'TypeScript',
+  'Ruby',
+  'Go',
+  'Kotlin',
+  'Rust',
+  'Dart',
+  'SQL',
+  'Ada',
+  'Pascal',
+  'Objective-C',
+  'R',
+  'Modula',
+  'Perl'
+];
+
 class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
@@ -35,7 +58,30 @@ class HomePageState extends State<HomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text("Live demo list grid"),
       ),
-      body: const Center(child: Text("Liste et Grilles"))
-    );
+      body: SingleChildScrollView (
+       child: Column (
+        children: languageListWidget(),
+      ),
+    ),
+   );
   }
+
+List<Widget> languageListWidget() {
+    List<Widget> rows = [];
+    for(String lg in top20langages) {
+      final row = Padding(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(lg, style: const TextStyle(fontSize: 28)),
+            const Icon(Icons.check_box_outline_blank)
+          ]
+        )
+      );
+      rows.add(row);
+    }
+    return rows;
+  }
+
 }
