@@ -69,25 +69,17 @@ class HomePageState extends State<HomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text("Live demo list grid"),
       ),
-      //body: SingleChildScrollView (
-      body: ListView.separated (
-        itemBuilder: (context, index) => Dismissible(
-          key: Key(langages[index].name), 
-          onDismissed: (direction) => setState(() => langages.removeAt(index)),
-          direction: DismissDirection.startToEnd,
-          background: Container(color: Colors.red),
-          child: langageTile(index),
+      body: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+        itemBuilder: (context, index) => Card(
+          elevation: 4,
+          color: Colors.lightGreen,
+          child: Center(
+            child: Text(langages[index].name, style: TextStyle(fontSize: 24)),
+          )
         ),
-       separatorBuilder: (context,index) => Divider(
-        endIndent: 20,
-        indent: 20,
-        thickness: 2,
-        color: index % 2 == 0 ? 
-          Colors.redAccent :
-          Colors.blueAccent,
-       ),
-       itemCount: top20langages.length,
-    ),
+        itemCount: langages.length,
+      )
    );
   }
 
