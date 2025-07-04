@@ -58,12 +58,25 @@ class HomePageState extends State<HomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text("Live demo list grid"),
       ),
-      body: SingleChildScrollView (
-       child: Column (
-        children: languageListWidget(),
-      ),
+      //body: SingleChildScrollView (
+      body: ListView.builder(
+       itemBuilder: (context, index) => languageItem(top20langages[index]),
+       itemCount: top20langages.length,
     ),
    );
+  }
+
+Widget languageItem(String s) {
+    return Padding(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(s, style: const TextStyle(fontSize: 28)),
+            const Icon(Icons.check_box_outline_blank)
+          ]
+        )
+      );
   }
 
 List<Widget> languageListWidget() {
