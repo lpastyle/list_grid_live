@@ -71,14 +71,12 @@ class HomePageState extends State<HomePage> {
       ),
       //body: SingleChildScrollView (
       body: ListView.separated (
-        itemBuilder: (context, index) => ListTile(
-          title: Text(langages[index].name, style: const TextStyle(fontSize: 28)),
-          leading: Text(index.toString(), style: const TextStyle(fontSize: 20)),
-          trailing: Checkbox(
-            value: langages[index].known, 
-            onChanged: (value) => setState(() =>langages[index].known = value ?? false)
-          ),
-          onTap: () => debugPrint('appui sur item $index'),
+        itemBuilder: (context, index) => Dismissible(
+          key: Key(langages[index].name), 
+          onDismissed: (direction) => setState(() => langages.removeAt(index)),
+          direction: DismissDirection.startToEnd,
+          background: Container(color: Colors.red),
+          child: langageTile(index),
         ),
        separatorBuilder: (context,index) => Divider(
         endIndent: 20,
@@ -91,6 +89,20 @@ class HomePageState extends State<HomePage> {
        itemCount: top20langages.length,
     ),
    );
+  }
+
+
+  ListTile langageTile(int index) {
+    return ListTile(
+          title: Text(langages[index].name, style: const TextStyle(fontSize: 28)),
+          leading: Text(index.toString(), style: const TextStyle(fontSize: 20)),
+          // use actual Checkbox instead of Icon
+          trailing: Checkbox(
+            value: langages[index].known,
+            onChanged: (value) => setState(() => langages[index].known = value ?? false)
+          ),
+          onTap: () => debugPrint('appui sur item $index'),
+        );
   }
 
 Widget languageItem(String s) {
